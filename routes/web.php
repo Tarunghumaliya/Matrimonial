@@ -32,11 +32,10 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('/editprofile','ProfileController@editprofile')->name('editprofile');
 	Route::post('/editprofile','ProfileController@register')->name('editprofile');
-	Route::get('/intrest','IntrestController@index')->name('intrest');
+	Route::get('/intrest','RequestController@intrest')->name('intrest');
 	Route::get('/match','MatchController@index')->name('match'); 
 	Route::get('/profile/{user}', 'ProfileController@profile')->name('profile.show');
 
-//Route::get('/request/{user}','RequestController@index');
 	Route::get('/sendrequest','RequestController@sendrequest')->name('sendrequest');
 	Route::get('/receiverequest','RequestController@receiverequest')->name('receiverequest');
 
@@ -50,8 +49,8 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('dropdownlist/getstates/{id}','ProfileController@getStates');
 	Route::get('dropdownlist/getcitys/{id}','ProfileController@getCity');
 
-	Route::post('/match','MatchController@filter');	
-
+	// Route::post('/match','MatchController@filter1');	
+	Route::post('/match','MatchController@filter')->name('filterform');
 
 	Route::post('/request', 'RequestController@store')->name('request');
 
@@ -59,7 +58,3 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
-
-
-
-// https://www.youtube.com/watch?v=mqgozi5H6xM

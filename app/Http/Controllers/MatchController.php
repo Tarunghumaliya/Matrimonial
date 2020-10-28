@@ -33,14 +33,24 @@ class MatchController extends Controller
     	}
     }
 
-    public function filter(Request $request){
-    	$profiles = profile::all()->where('age','>=',$request->minage)->where('age','<',$request->maxage)->where('admin','==',0)->where('status','==',1);
+  //   public function filter1(Request $request){
+  //   	$profiles = profile::all()->where('age','>=',$request->minage)->where('age','<',$request->maxage)->where('admin','==',0)->where('status','==',1);
 		
+
+		// $religion = profile::select('religion')->groupBy('religion')->get()->toArray() ;
+		// $cast = profile::select('cast')->groupBy('cast')->get()->toArray() ;
+				
+		// return view('match',compact("profiles","religion","cast"));
+  //   }
+    
+    public function filter(Request $request){
+    	
+    	$profiles = profile::all()->where('age','>=',$request->minage)->where('age','<',$request->maxage)->where('admin','==',0)->where('status','==',1);
 
 		$religion = profile::select('religion')->groupBy('religion')->get()->toArray() ;
 		$cast = profile::select('cast')->groupBy('cast')->get()->toArray() ;
 				
-		return view('match',compact("profiles","religion","cast"));
+		return view('editprofile2',compact("profiles","religion","cast"));
+
     }
-    
 }

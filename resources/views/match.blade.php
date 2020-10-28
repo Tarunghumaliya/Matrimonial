@@ -16,10 +16,12 @@
 </head>
 <body>
 
-    <div class="d-flex align-content-end flex-wrap">
+    <div >
         <button name="filter" id="filter" class="btn btn-success btn">Filter</button>
     </div>
-    <div >
+
+
+    <div class="filterdata">
     <div class="container1">
         @foreach($profiles as $value)
         <div class="card1">
@@ -37,7 +39,7 @@
                     <p> Profaction &nbsp:- &nbsp {{$value['profession']}} </p>
                     <p> Salary &nbsp:- &nbsp {{$value['salary']}} </p>
                     <p> City &nbsp:- &nbsp {{$value['city']}} </p>
-                    <a href="javascript:void(0)" id="request123 " onclick="requestid({{$value['id']}})"> Request</a>
+                    <a href="javascript:void(0)" onclick="requestid({{ $value['id']}})"> Request</a>
                     <a href="{{ URL('/profile/'.$value->id )}}"> View Details </a>
                 </div>
             </div>
@@ -56,7 +58,7 @@
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                 <form method="post" class="form-horizontal">
+                 <form method="post" id="filterform" class="form-horizontal">
                   @csrf
                   <div class="form-group">
                     <label class="control-label col-md-4" >Min Age : </label>
@@ -123,42 +125,45 @@
                    receiverid :receiverid
               },
       success:function(response){
-        console.log(response);
+        console.log(response.success);
+
       },
      });
     };
 </script>
-<!-- 
 
 <script type="text/javascript">
+    $('#filterform').on('submit',function(event){
+        event.preventDefault();
 
-        $('.request').on('submit',function(event){
-            event.preventDefault();
+        minage = $('#minage').val();
+        maxage = $('#maxage').val();
+        religion = $('#religion').val();
+        cast = $('#cast').val();
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-            receiverid= $('#receiverid').val();
-            
-            alert(receiverid);
-            
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-             });
-            $.ajax({
-              url: "{{ route('request') }}",
-              type:"POST",
-              data:{
-                   receiverid:receiverid
-              },
-              dataType:"JSON",
-              success:function(response){
-                console.log(response);
-                
-              },
-             });
-            });
-       </script> -->
+        $.ajax({
+          url: "{{ route('filterform') }}",
+          type:"POST",
+          data:{
+            "_token": "{{ csrf_token() }}",
+            minage:minage,
+            maxage:maxage,
+            religion:religion,
+            cast:cast,
+          },
+          success:function(response){
+            console.log(response);
+            $('.filterdata').html(response);
+          },
+         });
+        });
+</script>
 
 </body>
 </html>

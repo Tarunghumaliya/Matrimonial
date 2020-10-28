@@ -15,24 +15,19 @@ class RequestController extends Controller
       $receiverid = $request->receiverid;
       $senderid = Auth::user()->id;
 
-      
-      return response()->json(['success'=>'Form is successfully submitted!']);
+        $req = Requestmodel::all()->where('senderid','==', $senderid)->where('receiverid','==', $receiverid)->count();
+        if ($req > 0) {
+            return response()->json(['success'=>'Request is already submitted!']);
+        }
+        else{
+            $request= new Requestmodel;
+            $request->senderid=$senderid;
+            $request->receiverid=$receiverid;
+            $request->responce=0;
+            $request->save();
+        }
+      return response()->json(['success'=>'Request is successfully submitted!']);
 
-    }
-   public function index($user)
-    {
-        
-    	$request= new Requestmodel;
-    	$authuser=Auth::user()->id;
-
-    	$request->senderid=$authuser;
-    	$request->receiverid=$user;
-    	$request->responce=0;
-    	$request->save();
-
-    	$gender = profile::select('gender')->where('userid','=', $authuser)->get();
-        $profiles = profile::all()->where('id','!=', $authuser)->where('gender','!=', $gender);
-        return view('match',compact("profiles"));
     }
 
     public function sendrequest()
@@ -48,7 +43,9 @@ class RequestController extends Controller
                 }
             else{
                 	$request= Requestmodel::select('receiverid')->where('senderid','=',$userid)->where('responce','=','0')->get();
-                	return view('sendrequest',compact("request"));
+
+                    $loginprofile = profile::all()->where('id','=', $userid);
+                	return view('sendrequest',compact("request","loginprofile"));
                 }
         }
     }
@@ -65,8 +62,20 @@ class RequestController extends Controller
                 }
             else{
                 	$request= Requestmodel::select('senderid')->where('receiverid','=',$userid)->where('responce','=','0')->get();
-                	return view('sendrequest',compact("request"));
+
+                    $loginprofile = profile::all()->where('id','=', $userid);
+                	return view('sendrequest',compact("request","loginprofile"));
                 }
             }
+    }
+
+    public function intrest(){
+
+        $userid=Auth::user()->id;
+
+        $loginprofile = profile::all()->where('id','=', $userid);
+
+        $request= Requestmodel::all()->where('senderid','=',$userid)->where('receiverid','=',$userid)->where('responce','=','1')->get();
+        return view('sendrequest',compact("request","loginprofile"));
     }
 }
