@@ -19,20 +19,12 @@ class AdminController extends Controller
     	
     	$profile->status=$request->status;
     	$profile->save();
-    	return redirect('/newuser');
+    	return response()->json(['success'=>'Request is successfully accept!']);
     }
 
     public function alluser(){
     	$profile = profile::all()->where('admin','==',0);
         return view('adminuser',compact("profile"));
-    }
-    public function alluserupdate(Request $request){
-
-    	$profile = User::find($request->userid);
-    	
-    	$profile->status=$request->status;
-    	$profile->save();
-    	return redirect('/newuser');
     }
 
     

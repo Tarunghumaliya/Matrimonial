@@ -18,11 +18,10 @@
         <div class="col-md-2">
         	
             @if ( $value['id'] ==  Auth::user()->id )
-                <a href="route('editprofile')"><button>Edit</button></a>
+                <a href="{{ route('editprofile') }}"><button>Edit</button></a>
             @else
                 <button>intrest</button>
             @endif
-        	<button>Download</button>
         </div>
     </div>
     <hr>

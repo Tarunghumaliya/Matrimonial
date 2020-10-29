@@ -93,9 +93,10 @@
                     </div>
                    </div>
                    <br />
-                   <div class="form-group" align="center">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <button class="close" data-dismiss="modal" style="padding-top: 10px;">Close</button>
+                   <hr>
+                   <div class="form-group">
+                    <button class="close" data-dismiss="modal" style="padding-top: 10px; padding-left: 10px;"> Close </button>
+                    <button type="submit" class="close" style="padding-top: 10px; padding-left: 10px;"> Submit </button>
                    </div>
                  </form>
                 </div>
@@ -112,7 +113,6 @@
 <script type="text/javascript">
     function requestid(id){
         receiverid = id;
-        alert(receiverid);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -126,7 +126,7 @@
               },
       success:function(response){
         console.log(response.success);
-
+        alert(response.success);
       },
      });
     };
@@ -160,6 +160,7 @@
           success:function(response){
             console.log(response);
             $('.filterdata').html(response);
+            $('#formModal').modal('hide');
           },
          });
         });

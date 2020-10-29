@@ -40,9 +40,9 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/receiverequest','RequestController@receiverequest')->name('receiverequest');
 
 	Route::get('/newuser', 'AdminController@newuser')->name('newuser');
-	Route::post('/newuser','AdminController@newuserupdate');
+	// Route::post('/newuser','AdminController@newuserupdate');
 	Route::get('/alluser', 'AdminController@alluser')->name('alluser');
-	Route::post('/alluser','AdminController@newuserupdate');
+	Route::post('/alluser','AdminController@newuserupdate')->name('alluserajax');
 
 	Route::get('/notification','NotificationController@notification')->name('notification');
 
@@ -53,6 +53,9 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::post('/match','MatchController@filter')->name('filterform');
 
 	Route::post('/request', 'RequestController@store')->name('request');
+	
+	Route::post('/addcountry', 'HomeController@storecountry')->name('addcountry');
+	Route::post('/addstate', 'HomeController@storestate')->name('addstate');
 
 	Route::view('editprofile2','editprofile2',[ 'profiles' => App\profile::all()]);
 

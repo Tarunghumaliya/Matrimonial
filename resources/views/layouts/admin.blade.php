@@ -18,6 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="{{ asset('js/jquery.js') }}"></script>
+
 </head>
 <body>
     <div id="app">
@@ -51,6 +55,11 @@
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ URL('/profile/'.Auth::user()->id )}}">Admin Profile
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('home') }}">Home
                                 </a>
                             </li>
                             

@@ -13,7 +13,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script>
+	<!-- <script>
 		function showpreview(event){
 			if(event.target.files.length>0){
 				var src = URL.createObjectURL(event.target.files[0]);
@@ -39,9 +39,9 @@
 				window.close();
 			}
 		}
-	</script>
+	</script> -->
 	<script src="{{ asset('js/jquery.js') }}"></script>
-	<script src="{{ asset('js/bootstrap.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -70,16 +70,16 @@
 					<div class="form-group">
 						<label for="firstname" class="col-sm-5 control-label">FIRST NAME</label>
 						<div class="col-md-12">
-							<input type="text" name="firstname" value=" {{ $value['firstname']}} " class="form-control">
+							<input type="text" name="firstname" id="firstname" value=" {{ $value['firstname']}} " class="form-control">
 						</div>
 					</div>
 					<div class="form-group input-sm">
 						<label>SURNAME</label>
-						<input type="text" name="surname" value="{{$value['surname']}}">
+						<input type="text" name="surname" id="surname" value="{{$value['surname']}}">
 					</div>
 					<div class="form-group">
 						<label>DATE OF BIRTH</label>
-						<input type="date" name="dob" value="{{ $value['dob']}}">
+						<input type="date" name="dob" id="dob" value="{{ $value['dob']}}">
 					</div>
 					<div class="form-group input-sm">
 						<label>GENDER</label>
@@ -93,7 +93,7 @@
 					</div>
 					<div class="form-group">
 						<label>RELIGION</label>
-						<input type="text" name="religion" onselect="validatedata(event)" onclick="validatedata(event)" value="{{ $value['religion']}}">
+						<input type="text" name="religion" id="religion" onselect="validatedata(event)" onclick="validatedata(event)" value="{{ $value['religion']}}">
 					</div>
 					<div class="form-group input-sm">
 						<label>CAST</label>
@@ -101,7 +101,7 @@
 					</div>
 					<div class="form-group input-sm">
 						<label>MOBILE</label>
-						<input type="number" name="mobile" value="{{$value['mobile']}}">
+						<input type="number" name="mobile" id="mobile" value="{{$value['mobile']}}">
 					</div>
 					<div class="form-group input-sm">
 						<label>Height</label>
@@ -243,6 +243,41 @@
 
     });
     </script>
+
+
+<script>
+    if ($("#editprofile").length > 0) {
+        $("#editprofile").validate({
+ 
+            rules: {
+                firstname: {
+                    required: true,
+                    lettersonly: true,
+                    maxlength: 50
+                },
+ 
+                mobile: {
+                    required: true,
+                    number :true,
+                    minlength: 8,
+                    maxlength: 10,
+                },
+            },
+            messages: {
+ 
+                firstname: {
+                    required: "Please enter name",
+                },
+                mobile: {
+                    required: "Please enter message",
+                },
+ 
+            },
+        })
+    } 
+ </script>
+
+
 </body>
 </html>
 

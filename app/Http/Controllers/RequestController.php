@@ -75,7 +75,7 @@ class RequestController extends Controller
 
         $loginprofile = profile::all()->where('id','=', $userid);
 
-        $request= Requestmodel::all()->where('senderid','=',$userid)->where('receiverid','=',$userid)->where('responce','=','1')->get();
-        return view('sendrequest',compact("request","loginprofile"));
+        $request= Requestmodel::all()->where('responce','==','1');
+        return view('intrest',compact("request","loginprofile"));
     }
 }
